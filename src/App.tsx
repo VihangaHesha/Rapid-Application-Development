@@ -1,6 +1,6 @@
 import React, {createContext} from 'react';
 import './App.css';
-import {Counter} from "./Counter/Counter";
+import {Counter} from "./components/Counter/Counter";
 
 export const MessageContext = createContext('');
 

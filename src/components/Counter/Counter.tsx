@@ -1,49 +1,12 @@
 import './Counter.css';
 import {useReducer} from "react";
+import {counterReducer} from "../../reducers/counterReducer";
 import {Message} from "../Message/Message";
-// import {useEffect, useState} from "react";
-
-
-//Define the state of the Component(STEP 01)
-interface State{
-    count: number,
-    error:string | null
-}
-
-//Define the actions of the managed within the component(STEP 02)
-interface Action{
-    type: 'increment' | 'decrement'
-}
-
-function reducer(state : State , action : Action) {
-    const {type} = action;
-    switch (type){
-        case "increment":{
-            const newCount: number = state.count + 1;
-            const hasError = newCount > 5;
-            return{
-                ...state,
-                count: hasError ? state.count + 1 : newCount ,
-                error:hasError ? 'Has Reached Maximum Count!!!' : null
-            }
-        }
-        case "decrement":{
-            const newCount : number = state.count - 1;
-            const hasError = newCount < 0;
-            return {
-        ...state,
-                count:hasError ? state.count : newCount,
-                error: hasError ? 'Has Reached Minimum Count!!!' : null
-        }
-        }
-        default : return state;
-    }
-}
 
 export function Counter() {
 
     const [ state  , dispatch ] = useReducer(
-        reducer, {
+        counterReducer, {
             count : 0,
             error:null
     }
