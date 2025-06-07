@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "name": "Handcrafted Keychain",
+    "price": 3450,
+    "currency": "LKR",
+    "image": "Handcrafted Man Figure Keychain.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Handcrafted Bird Statue",
+    "price": 5000,
+    "currency": "LKR",
+    "image" : "Handcrafted Little bird.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Handcrafted Flower Vase",
+    "price": 2400,
+    "currency": "LKR",
+    "image" : "Crafted Flower Vase.jpg"
+  },
+  {
+    "id": 4,
+    "name": "Handcrafted Couple",
+    "price": 7000,
+    "currency": "LKR",
+    "image" : "Handcrafted Hugging Couple.jpg"
+  }
+]
