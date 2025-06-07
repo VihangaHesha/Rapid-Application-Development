@@ -18,16 +18,22 @@ function reducer(state : State , action : Action) {
     const {type} = action;
     switch (type){
         case "increment":{
+            const newCount: number = state.count + 1;
+            const hasError = newCount > 5;
             return{
                 ...state,
-                count:state.count + 1
+                count: hasError ? state.count + 1 : newCount ,
+                error:hasError ? 'Has Reached Maximum Count!!!' : null
             }
         }
         case "decrement":{
+            const newCount : number = state.count - 1;
+            const hasError = newCount < 0;
             return {
-                ...state,
-                count: state.count - 1
-            }
+        ...state,
+                count:hasError ? state.count : newCount,
+                error: hasError ? 'Has Reached Minimum Count!!!' : null
+        }
         }
         default : return state;
     }
@@ -44,8 +50,10 @@ export function Counter(props:any) {
 
     return (
         <div className="counter">
-            <h1>React Counter (Using Functional Component)</h1>
+            <h1>React Counter (Using useReducer())</h1>
             <h2>Count : {state.count}</h2>
+            {state.error && <span className="error">{state.error}</span>}
+            <br/>
             <button className="button" onClick={()=> dispatch({type:'decrement'})}>-</button>
             <button className="button" onClick={()=> dispatch({type:'increment'})}>+</button>
         </div>
