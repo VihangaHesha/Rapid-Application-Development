@@ -1,12 +1,19 @@
-import React from 'react';
+import React, {createContext} from 'react';
 import './App.css';
 import {Counter} from "./Counter/Counter";
 
+export const MessageContext = createContext('');
+
 function App(){
+
+    const message = "Hello There";
+
     return(
-        <div className="app">
-            <Counter data={"Hello"}/>
-        </div>
+        <MessageContext.Provider value={message}>
+            <div className="app">
+                <Counter/>
+            </div>
+        </MessageContext.Provider>
     )
 }
 

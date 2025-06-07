@@ -1,5 +1,6 @@
 import './Counter.css';
 import {useReducer} from "react";
+import {Message} from "../Message/Message";
 // import {useEffect, useState} from "react";
 
 
@@ -39,7 +40,7 @@ function reducer(state : State , action : Action) {
     }
 }
 
-export function Counter(props:any) {
+export function Counter() {
 
     const [ state  , dispatch ] = useReducer(
         reducer, {
@@ -56,6 +57,7 @@ export function Counter(props:any) {
             <br/>
             <button className="button" onClick={()=> dispatch({type:'decrement'})}>-</button>
             <button className="button" onClick={()=> dispatch({type:'increment'})}>+</button>
+            <Message/>
         </div>
     );
 
