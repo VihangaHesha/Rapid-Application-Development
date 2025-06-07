@@ -16,3 +16,7 @@
     border-radius: 5px;
     border: 2px solid;
 }
+
+.error{
+    color: red;
+}

@@ -1,11 +1,59 @@
 import './Counter.css';
-import {useEffect, useState} from "react";
+import {useReducer} from "react";
+// import {useEffect, useState} from "react";
+
+
+//Define the state of the Component(STEP 01)
+interface State{
+    count: number,
+    error:string | null
+}
+
+//Define the actions of the managed within the component(STEP 02)
+interface Action{
+    type: 'increment' | 'decrement'
+}
+
+function reducer(state : State , action : Action) {
+    const {type} = action;
+    switch (type){
+        case "increment":{
+            return{
+                ...state,
+                count:state.count + 1
+            }
+        }
+        case "decrement":{
+            return {
+                ...state,
+                count: state.count - 1
+            }
+        }
+        default : return state;
+    }
+}
 
 export function Counter(props:any) {
 
-    const [count,setCount] = useState(0);
+    const [ state  , dispatch ] = useReducer(
+        reducer, {
+            count : 0,
+            error:null
+    }
+    );
 
-    /*useEffect(() =>{
+    return (
+        <div className="counter">
+            <h1>React Counter (Using Functional Component)</h1>
+            <h2>Count : {state.count}</h2>
+            <button className="button" onClick={()=> dispatch({type:'decrement'})}>-</button>
+            <button className="button" onClick={()=> dispatch({type:'increment'})}>+</button>
+        </div>
+    );
+
+    /*const [count,setCount] = useState(0);
+
+    useEffect(() =>{
         alert("componentDidMount: Component has been mounted!!"
         +"Props: "+props.data)
         //In functional components we have useEffect as the componentDidMount in class component
@@ -26,14 +74,5 @@ export function Counter(props:any) {
     useEffect(() => {
         alert("componentDidUpdate: Count Changed to: "+ count)
     }, [count]);*/
-
-    return (
-        <div className="counter">
-            <h1>React Counter (Using Functional Component)</h1>
-            <h2>Count : {count}</h2>
-            <button className="button" >+</button>
-            <button className="button" >-</button>
-        </div>
-    );
 }
 
