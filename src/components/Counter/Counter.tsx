@@ -1,19 +1,13 @@
 import './Counter.css';
 import {Message} from "../Message/Message";
 import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../../store/Store";
-import {decrement, increment} from "../../actions/counterActions";
+import {AppDispatch, RootState} from "../../store/Store";
+import {decrement, increment, incrementAsync} from "../../slices/counterSlice";
+
 
 export function Counter() {
 
-    /*const [ state,dispatch ] = useReducer(
-        counterSlice, {
-            count : 0,
-            error:null
-    }
-    );*/
-
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
 
    /* //We just get the state and assign it to a variable and use it in the code without creating to variables
     const count = useSelector(
@@ -27,17 +21,18 @@ export function Counter() {
 
     return (
         <div className="counter">
-            <h1>React Counter (Using useReducer())</h1>
+            <h1>React Counter (Using Redux)</h1>
             <h2>Count : {count}</h2>
             {error && <span className="error">{error}</span>}
             <br/>
            {/* <button className="button" onClick={()=> dispatch({type:'decrement'})}>-</button>
             <button className="button" onClick={()=> dispatch({type:'increment'})}>+</button>*/}
 
-            {/*With the help of counterAction.ts now we can get it from the ts file rather that hard coding it*/}
+            {/*Bellow we need to import the dispatch actions from the slice as we have done the logic in there*/}
             <button className="button" onClick={()=> dispatch(decrement())}>-</button>
             <button className="button" onClick={()=> dispatch(increment())}>+</button>
-
+            <br/>
+            <button className="button" onClick={()=> dispatch(incrementAsync(1))}>Async Add 1</button>
             <Message/>
         </div>
     );
