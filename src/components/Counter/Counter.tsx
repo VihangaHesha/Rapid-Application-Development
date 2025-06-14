@@ -1,13 +1,13 @@
 import './Counter.css';
 import {Message} from "../Message/Message";
 import {useDispatch, useSelector} from "react-redux";
-import {CounterState} from "../../store/Store";
+import {RootState} from "../../store/Store";
 import {decrement, increment} from "../../actions/counterActions";
 
 export function Counter() {
 
     /*const [ state,dispatch ] = useReducer(
-        counterReducer, {
+        counterSlice, {
             count : 0,
             error:null
     }
@@ -15,13 +15,15 @@ export function Counter() {
 
     const dispatch = useDispatch();
 
-    //We just get the state and assign it to a variable and use it in the code without creating to variables
+   /* //We just get the state and assign it to a variable and use it in the code without creating to variables
     const count = useSelector(
         (state:CounterState ) => state.count
     );
     const error = useSelector(
         (state:CounterState ) => state.error
-    );
+    );*/
+
+    const {count,error} = useSelector((state: RootState) => state.counter )
 
     return (
         <div className="counter">
