@@ -4,16 +4,22 @@ export interface CounterState{
     error:string | null
 }
 
+//In the initial state the count is 0 and there is no error so we can say the error is null!
+const initialState : CounterState = {
+    count: 0,
+    error: null
+}
+
 //Define the actions of the managed within the component(STEP 02)
 interface CounterAction{
     type: 'increment' | 'decrement'
 }
 
-export function counterReducer(state : CounterState , action : CounterAction) {
+export function counterReducer(state = initialState , action : CounterAction) {
     const {type} = action;
     switch (type){
         case "increment":{
-            const newCount: number = state.count + 1;
+            const newCount = state.count + 1;
             const hasError = newCount > 5;
             return{
                 ...state,
@@ -22,7 +28,7 @@ export function counterReducer(state : CounterState , action : CounterAction) {
             }
         }
         case "decrement":{
-            const newCount : number = state.count - 1;
+            const newCount = state.count - 1;
             const hasError = newCount < 0;
             return {
                 ...state,
