@@ -18,8 +18,7 @@ const images : Record<string, string> = import.meta.glob('../../../assets/Produc
 
 export function Product({data} : ProductsProps) {
 
-    // console.log(images)
-    // console.log(`../../assets/${data.image}`)
+
     const image = images[`../../../assets/Products/${data.image}`];
 
     const [isActive,setIsActive] = useState(false);
