@@ -1,9 +1,8 @@
 import type {CartItem} from "../../../model/CartItem.ts";
 import type {ProductData} from "../../../model/ProductData.ts";
-import {useDispatch} from "react-redux";
-import type {AppDispatch} from "../../../store/store.ts";
+import {useDispatch, useSelector} from "react-redux";
+import type {AppDispatch, RootState} from "../../../store/store.ts";
 import {decreaseQty, increaseQty} from "../../../slices/cartSlice.ts";
-import {useState} from "react";
 
 interface ModifyCartProps{
     data : {product : ProductData}
@@ -13,7 +12,7 @@ export const itemsList : CartItem[] = [];
 
 export function ModifyCart({data} : ModifyCartProps) {
     const dispatch = useDispatch<AppDispatch>()
-    const [itemCount,setItemCount] = useState(1)
+    // const [itemCount,setItemCount] = useState(1)
 
     /*useEffect(() =>{
         const existingItem = itemsList.find(item => item.product.id === data.product.id)
@@ -29,15 +28,18 @@ export function ModifyCart({data} : ModifyCartProps) {
         console.log(itemsList);
     },[itemCount,data])*/
 
+    const item = useSelector((state:RootState)=> state.cart.items.find(
+        cartItem => cartItem.product.id=== data.product.id))
+
     const decreaseItemCount = () =>{
-        setItemCount( prevValue => prevValue > 1
-            ? prevValue -1
-            : (alert("Item count can't be less that 1"), prevValue))
-        dispatch(decreaseQty(data.product.id))
+        if(item && item.quantity>1){
+            dispatch(decreaseQty(data.product.id))
+        }else{
+            alert("Item Count can't be less than 1 !!!")
+        }
     }
 
     const increaseItemCount =() =>{
-        setItemCount( preCount => preCount +1)
         dispatch(increaseQty(data.product.id))
     }
     return (
@@ -47,7 +49,7 @@ export function ModifyCart({data} : ModifyCartProps) {
             onClick={decreaseItemCount}>
                 -
             </button>
-            <small className="text-[16px] font-semibold m-6 ">{itemCount}</small>
+            <small className="text-[16px] font-semibold m-6 ">{item?.quantity}</small>
             <button className="float-right font-semibold text-[16px] w-[25px] h-[25px] bg-yellow-400 text-black
                     border rounded-md border-neutral-600 hover:bg-black
                     hover:text-yellow-400 transition-colors duration-300 ease-in-out"
