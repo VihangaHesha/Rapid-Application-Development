@@ -1,6 +1,9 @@
-import {useEffect, useState} from "react";
 import type {CartItem} from "../../../model/CartItem.ts";
 import type {ProductData} from "../../../model/ProductData.ts";
+import {useDispatch} from "react-redux";
+import type {AppDispatch} from "../../../store/store.ts";
+import {decreaseQty, increaseQty} from "../../../slices/cartSlice.ts";
+import {useState} from "react";
 
 interface ModifyCartProps{
     data : {product : ProductData}
@@ -9,10 +12,10 @@ interface ModifyCartProps{
 export const itemsList : CartItem[] = [];
 
 export function ModifyCart({data} : ModifyCartProps) {
-
+    const dispatch = useDispatch<AppDispatch>()
     const [itemCount,setItemCount] = useState(1)
 
-    useEffect(() =>{
+    /*useEffect(() =>{
         const existingItem = itemsList.find(item => item.product.id === data.product.id)
 
         if (existingItem) {
@@ -24,16 +27,18 @@ export function ModifyCart({data} : ModifyCartProps) {
             });
         }
         console.log(itemsList);
-    },[itemCount,data])
+    },[itemCount,data])*/
 
     const decreaseItemCount = () =>{
         setItemCount( prevValue => prevValue > 1
             ? prevValue -1
             : (alert("Item count can't be less that 1"), prevValue))
+        dispatch(decreaseQty(data.product.id))
     }
 
     const increaseItemCount =() =>{
-    setItemCount( preCount => preCount +1)
+        setItemCount( preCount => preCount +1)
+        dispatch(increaseQty(data.product.id))
     }
     return (
         <div className="w-full mt-1 p-[2.4px] text-[8px] text-center">

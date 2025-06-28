@@ -40,10 +40,12 @@ const cartSlice = createSlice({
             existingItem.product.id===action.payload)
             if(item && item.quantity > 1){
                 item.quantity -= 1;
+            }else{
+                alert("Item Count can't be less than 1 !!!")
             }
         }
     }
 })
 
-export const {addItemToCart} = cartSlice.actions;
+export const {addItemToCart,increaseQty,decreaseQty} = cartSlice.actions;
 export default cartSlice.reducer;

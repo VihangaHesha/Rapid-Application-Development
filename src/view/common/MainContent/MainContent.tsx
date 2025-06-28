@@ -5,7 +5,6 @@ import {About} from "../../pages/About/About.tsx";
 import {Contact} from "../../pages/Contact/Contact.tsx";
 import {Services} from "../../pages/Services/Services.tsx";
 import {ShoppingCart} from "../../pages/ShoppinCart/ShoppingCart.tsx";
-import {itemsList} from "../ModifyCart/ModifyCart.tsx";
 
 export function MainContent() {
     return (
@@ -16,7 +15,7 @@ export function MainContent() {
                     <Route path="/about" element={<About/>}></Route>
                     <Route path="/services" element={<Services/>}></Route>
                     <Route path="/contact" element={<Contact/>}></Route>
-                    <Route path="/cart" element={<ShoppingCart itemList={itemsList}/>}></Route>
+                    <Route path="/cart" element={<ShoppingCart/>}></Route>
                 </Routes>
             </div>
         </div>

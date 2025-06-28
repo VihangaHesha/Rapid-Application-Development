@@ -1,13 +1,17 @@
 import {useState} from "react";
 import {ModifyCart} from "../ModifyCart/ModifyCart.tsx";
+import type {AppDispatch} from "../../../store/store.ts";
+import {useDispatch} from "react-redux";
+import { addItemToCart } from "../../../slices/cartSlice.ts";
+import type { ProductData } from "../../../model/ProductData.ts";
 
-type ProductData = {
+/*type ProductData = {
     id : number,
     name: string,
     price : number,
     currency : string,
     image : string
-}
+}*/
 
 type ProductsProps = {
     data :ProductData
@@ -18,12 +22,13 @@ const images : Record<string, string> = import.meta.glob('../../../assets/Produc
 
 export function Product({data} : ProductsProps) {
 
-
+    const dispatch = useDispatch<AppDispatch>();
     const image = images[`../../../assets/Products/${data.image}`];
 
     const [isActive,setIsActive] = useState(false);
 
     const addToCart = ()=>{
+        dispatch(addItemToCart(data))
         setIsActive(true)
     }
 
