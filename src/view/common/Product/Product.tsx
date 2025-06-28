@@ -1,17 +1,9 @@
-import {useState} from "react";
 import {ModifyCart} from "../ModifyCart/ModifyCart.tsx";
-import type {AppDispatch} from "../../../store/store.ts";
-import {useDispatch} from "react-redux";
+import type {AppDispatch, RootState} from "../../../store/store.ts";
+import {useDispatch, useSelector} from "react-redux";
 import { addItemToCart } from "../../../slices/cartSlice.ts";
 import type { ProductData } from "../../../model/ProductData.ts";
 
-/*type ProductData = {
-    id : number,
-    name: string,
-    price : number,
-    currency : string,
-    image : string
-}*/
 
 type ProductsProps = {
     data :ProductData
@@ -25,11 +17,12 @@ export function Product({data} : ProductsProps) {
     const dispatch = useDispatch<AppDispatch>();
     const image = images[`../../../assets/Products/${data.image}`];
 
-    const [isActive,setIsActive] = useState(false);
+    const item =  useSelector((state:RootState)=> state.cart.items.find(cartItem => cartItem.product.id === data.id))
+    // const [isActive,setIsActive] = useState(false);
 
     const addToCart = ()=>{
         dispatch(addItemToCart(data))
-        setIsActive(true)
+        // setIsActive(true)
     }
 
     return (
@@ -49,7 +42,8 @@ export function Product({data} : ProductsProps) {
             </div>
             <div className="flex justify-center items-center">
                 {
-                    isActive ? (
+                    //We can check if the item is null or undefined just like below!
+                    item ? (
                         <ModifyCart data={{
                             product:data
                         }}/>

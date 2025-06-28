@@ -12,21 +12,7 @@ export const itemsList : CartItem[] = [];
 
 export function ModifyCart({data} : ModifyCartProps) {
     const dispatch = useDispatch<AppDispatch>()
-    // const [itemCount,setItemCount] = useState(1)
 
-    /*useEffect(() =>{
-        const existingItem = itemsList.find(item => item.product.id === data.product.id)
-
-        if (existingItem) {
-            existingItem.quantity = itemCount;
-        }else {
-            itemsList.push({
-                product: data.product,
-                quantity: itemCount
-            });
-        }
-        console.log(itemsList);
-    },[itemCount,data])*/
 
     const item = useSelector((state:RootState)=> state.cart.items.find(
         cartItem => cartItem.product.id=== data.product.id))
