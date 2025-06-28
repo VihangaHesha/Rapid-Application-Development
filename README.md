@@ -78,14 +78,14 @@ wood-crafts-shop/
 │   ├── model/               # Data models and types
 │   ├── slices/              # Redux slices (state management)
 │   ├── store/               # Redux store configuration
-│   └── view/
+│   ├── view/
 │       ├── common/          # Reusable components
-│       ├── pages/           # Page components
-│       ├── App.css          # Main application styles
-│       ├── App.tsx          # Root component
-│       ├── index.css        # Global styles
-│       ├── main.tsx         # Application entry point
-│       └── vite-env.d.ts    # Vite environment types
+│       └── pages/           # Page components
+│   ├── App.css          # Main application styles
+│   ├── App.tsx          # Root component
+│   ├── index.css        # Global styles
+│   ├── main.tsx         # Application entry point
+│   └── vite-env.d.ts    # Vite environment types
 ├── package.json
 ├── tsconfig.json
 ├── vite.config.ts
