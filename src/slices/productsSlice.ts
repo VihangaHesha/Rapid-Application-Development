@@ -1,40 +1,41 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import type {ProductData} from "../model/ProductData.ts";
 
 interface ProductState {
-    list:[],
-    error: string | null | undefined
+    list: ProductData[],
+    error: string | null | undefined;
 }
 
-const initialState : ProductState = {
-    list:[],
-    error: null
+const initialState: ProductState = {
+    list: [],
+    error: null,
 }
 
 export const getAllProducts = createAsyncThunk(
     'products/getAllProducts',
-    async ()=>{
-        const response = await fetch('./product-data.json');
+    async () => {
+        const response = await fetch('./product-data.json')
         return await response.json();
     }
 )
 
-const productsSlice = createSlice({
-    name:'products',
+const productSlice = createSlice({
+    name: 'products',
     initialState,
-    reducers:{},
-    extraReducers:(builder)=>{
+    reducers: {},
+    extraReducers: (builder) => {
         builder
-            .addCase(getAllProducts.pending,()=>{
-            alert("Products are still loading!!!")
+            .addCase(getAllProducts.pending, () => {
+                alert("Products are loading... Please wait.");
             })
-            .addCase(getAllProducts.fulfilled,(state, action)=>{
+            .addCase(getAllProducts.fulfilled, (state, action) => {
                 state.list = action.payload;
             })
-            .addCase(getAllProducts.rejected,(state, action)=>{
+            .addCase(getAllProducts.rejected, (state, action) => {
                 state.error = action.error.message;
-                alert("Error Loading!!!" + state.error)
+                alert(`Error: ${state.error}`);
             })
     }
-});
+})
 
-export default productsSlice.reducer;
+export default productSlice.reducer

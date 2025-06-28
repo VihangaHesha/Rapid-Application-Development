@@ -38,8 +38,8 @@ export function ShoppingCart({itemList} : ShoppingCartProps) {
                                    <td>{item.product.id}</td>
                                    <td>{item.product.name}</td>
                                    <td>{item.product.price} {item.product.currency}</td>
-                                   <td>{item.itemCount}</td>
-                                   <td>{item.product.price * item.itemCount} {item.product.currency}</td>
+                                   <td>{item.quantity}</td>
+                                   <td>{item.product.price * item.quantity} {item.product.currency}</td>
                                </tr>
                            ))
                        )

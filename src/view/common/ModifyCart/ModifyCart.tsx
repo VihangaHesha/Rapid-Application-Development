@@ -16,11 +16,11 @@ export function ModifyCart({data} : ModifyCartProps) {
         const existingItem = itemsList.find(item => item.product.id === data.product.id)
 
         if (existingItem) {
-            existingItem.itemCount = itemCount;
+            existingItem.quantity = itemCount;
         }else {
             itemsList.push({
                 product: data.product,
-                itemCount: itemCount
+                quantity: itemCount
             });
         }
         console.log(itemsList);
