@@ -82,12 +82,12 @@ npm -i nodemon
 **After the installation make these changes**
 -Step 01 : Add **nodemon.json** to the **src** file.
 -Step 02 : Add these values :
-        - ```json
+        ```json
         {
-        "watch": ["src"],
-        "ext": "ts",
-        "ignore": ["src/**/*.spec.ts"],
-        "exec": "ts-node ./src/index.ts"
+          "watch": ["src"],
+          "ext": "ts",
+          "ignore": ["src/**/*.spec.ts"],
+            "exec": "ts-node ./src/index.ts"
         }
         ```
 
