@@ -74,6 +74,23 @@ After creating the `tsconfig.json` file, make the following changes:
 - `"rootDir": "./src"` - Sets source directory
 - `"outDir": "./dist"` - Sets output directory for compiled JavaScript
 
+**Install Nodemon dependency for efficient work 📚**
+```bash
+npm -i nodemon
+```
+
+**After the installation make these changes**
+-Step 01 : Add **nodemon.json** to the **src** file.
+-Step 02 : Add these values :
+        - ```json
+        {
+        "watch": ["src"],
+        "ext": "ts",
+        "ignore": ["src/**/*.spec.ts"],
+        "exec": "ts-node ./src/index.ts"
+        }
+        ```
+
 ## 🏗️ Project Structure
 
 ```
