@@ -80,8 +80,8 @@ npm -i nodemon
 ```
 
 **After the installation make these changes**
--Step 01 : Add **nodemon.json** to the **src** file.
--Step 02 : Add these values :
+-`Step 01 : Add **nodemon.json** to the **src** file.`
+-`Step 02 : Add these values :
         ```json
         {
           "watch": ["src"],
@@ -90,6 +90,7 @@ npm -i nodemon
             "exec": "ts-node ./src/index.ts"
         }
         ```
+        `
 
 ## 🏗️ Project Structure
 
