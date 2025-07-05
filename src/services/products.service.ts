@@ -1,6 +1,5 @@
 import {productList} from "../db/db";
 import {Product} from "../model/product.model";
-import productRouter from "../routes/product.routes";
 
 export const getAllProducts = ():Product[] => {
     return productList
