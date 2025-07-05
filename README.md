@@ -89,7 +89,7 @@ npm -i nodemon
           "ignore": ["src/**/*.spec.ts"],
             "exec": "ts-node ./src/index.ts"
         }
-        ```
+  ```
 
 ## 🏗️ Project Structure
 
