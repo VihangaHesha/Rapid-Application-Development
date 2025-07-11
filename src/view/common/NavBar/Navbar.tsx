@@ -1,13 +1,13 @@
 // import "./Navbar.css";
 import {Link} from "react-router-dom";
-import logo from '../../../assets/react.svg';
+import logo from '../../../assets/Logos/wood-shop-logo.jpg';
 
 export function Navbar() {
     return (
         <div
             className="font-sans flex justify-between items-center py-7 px-5 mt-2.5 mx-2.5 bg-neutral-800 shadow-lg backdrop-blur-lg  h-10 text-white w-[calc(100%-25px)] rounded-2xl">
             <div className="navbar_logo">
-                <img src={logo} alt="logo"/>
+                <img className="w-9 h-9" src={logo} alt="logo"/>
             </div>
             <div className="navigation flex items-center justify-center gap-5">
                 <ul className="flex items-center justify-center gap-5 list-none">

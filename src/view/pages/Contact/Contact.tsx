@@ -1,5 +1,7 @@
 // import "./Contact.css";
 import {useForm} from "react-hook-form";
+import type {ContactData} from "../../../model/ContactData.ts"
+import {backendApi} from "../../../api.ts";
 
 type FormData = {
     email: string;
@@ -10,10 +12,21 @@ type FormData = {
 export function Contact() {
     const {register, handleSubmit, formState: {errors}} = useForm<FormData>();
 
-    const onSubmit = (data: FormData) => {
-        console.log("Form submitted successfully:", data);
+    const onSubmit = async (data: ContactData) => {
+        /*console.log("Form submitted successfully:", data);
         alert(`Form submitted successfully for: ${data.subject} We will get back to you soon.`);
-        window.location.reload();
+        window.location.reload();*/
+
+        try {
+            const response = await backendApi.post("/contact/save",data)
+            console.log("Form Submitted Successfully",response.data)
+            alert(`Form submitted successfully for: ${data.subject} We will get back to you soon.`);
+            window.location.reload();
+        }catch (error){
+            console.error("Error submitting form:", error);
+            alert("Failed to send message. Please try again.");
+        }
+
     }
 
     return (
@@ -25,7 +38,7 @@ export function Contact() {
                 >
                     <h2 className="text-3xl text-[#D4AF37] mb-3 text-center">Contact Us</h2>
                     <p className="text-[#bbbbbb] mb-7 text-[15px] text-center">
-                        We would love to hear from you!
+                        WE WOULD LOVE TO HEAR FROM YOU!
                     </p>
 
                     <div className="mb-6 w-full">
