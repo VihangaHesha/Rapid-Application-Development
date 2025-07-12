@@ -3,6 +3,7 @@ import * as productService from "../services/products.service"
 
 // 200 - Success
 // 400 - Bad Request
+// 401 - Unauthorized
 // 404 - Not Found
 // 500 - Error
 // 201 - Created

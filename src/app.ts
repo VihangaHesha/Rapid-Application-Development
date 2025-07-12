@@ -1,7 +1,7 @@
 import express, {Express} from "express";
 import productRouter from "./routes/product.route";
 import contactRouter from "./routes/contact.route";
-
+import authRouter from "./routes/auth.route";
 import cors from 'cors';
 
 
@@ -31,6 +31,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
+app.use("/api/auth", authRouter)
 app.use("/api/products", productRouter);
 app.use("/api/contact",contactRouter)
 
