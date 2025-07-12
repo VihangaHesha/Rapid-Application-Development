@@ -16,6 +16,9 @@ const allowedOrigins = [
 //This allows/enable CORS in the project
 // app.use(cors());
 
+//Blacklisting means
+
+//This is called whitelisting a URL (Allowing some URLs to access the API)
 const corsOptions = {
     origin : (origin:string|undefined , callback: (err:Error | null , allow?:boolean) => void) => {
         if (!origin || allowedOrigins.includes(origin)){
@@ -26,7 +29,7 @@ const corsOptions = {
     }
 }
 
-app.use(cors());
+app.use(cors(corsOptions));
 
 app.use("/api/products", productRouter);
 app.use("/api/contact",contactRouter)
