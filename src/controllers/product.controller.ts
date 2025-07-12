@@ -7,9 +7,9 @@ import * as productService from "../services/products.service"
 // 500 - Error
 // 201 - Created
 
-export const getAllProducts = (req:Request, res:Response) => {
+export const getAllProducts = async (req:Request, res:Response) => {
     try {
-        const products = productService.getAllProducts();
+        const products = await productService.getAllProducts();
         res.status(200).json(products);
     }catch (error){
         console.error(error)
@@ -19,7 +19,7 @@ export const getAllProducts = (req:Request, res:Response) => {
     }
 }
 
-export const saveProduct = (req:Request,res:Response) => {
+export const saveProduct = async (req:Request,res:Response) => {
     try{
         const newProduct = req.body;
         const validationError = productService.validateProduct(newProduct);
@@ -28,7 +28,7 @@ export const saveProduct = (req:Request,res:Response) => {
             res.status(400).json({error:validationError});
             return
         }
-        const savedProduct = productService.saveProduct(newProduct);
+        const savedProduct = await productService.saveProduct(newProduct);
         res.status(201).json(savedProduct)
 
     }catch (error){
@@ -39,14 +39,14 @@ export const saveProduct = (req:Request,res:Response) => {
     }
 }
 
-export const getProduct = (req:Request,res:Response) => {
+export const getProduct = async (req:Request,res:Response) => {
     try{
         const productId = parseInt(req.params.id);
         if (isNaN(productId)){
             res.status(400).json({error:'Invalid Product ID!'});
             return
         }
-        const products =  productService.getProductById(productId)
+        const products = await productService.getProductById(productId)
         if (!products){
             res.status(404).json({error:'Product Not Found !!!'});
             return;
@@ -60,7 +60,7 @@ export const getProduct = (req:Request,res:Response) => {
     }
 }
 
-export const updateProduct = (req:Request,res:Response) => {
+export const updateProduct = async (req:Request,res:Response) => {
     try{
         const productId = parseInt(req.params.id);
         if (isNaN(productId)){
@@ -68,7 +68,7 @@ export const updateProduct = (req:Request,res:Response) => {
             return
         }
         const updatedData = req.body
-        const updatedProducts = productService.updateProduct(productId,updatedData)
+        const updatedProducts = await productService.updateProduct(productId,updatedData)
         if (!updatedProducts){
             res.status(404).json({error:'Products Not Found!!'});
             return;
@@ -82,14 +82,14 @@ export const updateProduct = (req:Request,res:Response) => {
     }
 }
 
-export const deleteProduct = (req:Request,res:Response) => {
+export const deleteProduct = async (req:Request,res:Response) => {
     try{
         const productId = parseInt(req.params.id);
         if (isNaN(productId)){
             res.status(400).json({error:'Invalid Product ID!'});
             return
         }
-        const deletedProduct = productService.deleteProduct(productId)
+        const deletedProduct = await productService.deleteProduct(productId)
         if (!deletedProduct){
             res.status(404).json({error:'Product Not Found!'});
             return;

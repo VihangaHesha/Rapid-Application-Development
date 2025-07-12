@@ -1,9 +1,9 @@
 import {Request,Response} from "express";
 import * as ContactService from "../services/contact.service"
 
-export const getAllMessages = (req:Request , res:Response) => {
+export const getAllMessages = async (req:Request , res:Response) => {
     try {
-        const messages = ContactService.getAllMessages()
+       const messages = await ContactService.getAllMessages()
         res.status(200).json(messages)
     }catch (error) {
         console.error(error)
@@ -13,7 +13,7 @@ export const getAllMessages = (req:Request , res:Response) => {
     }
 }
 
-export const saveMessage = (req:Request,res:Response) => {
+export const saveMessage = async (req:Request,res:Response) => {
     try{
         const newMessage = req.body;
         const validateMessage = ContactService.validateContact(newMessage)
@@ -21,7 +21,7 @@ export const saveMessage = (req:Request,res:Response) => {
             res.status(400).json({error:validateMessage});
             return
         }
-        const saveMessage = ContactService.saveMessage(newMessage)
+        const saveMessage = await ContactService.saveMessage(newMessage)
         res.status(201).json(saveMessage)
     }catch (error){
         console.error(error)

@@ -1,6 +1,6 @@
-import {contactDet} from "../db/db"
 import Contact from "../model/contact.model"
 import {ContactDto} from "../dto/contact.dto";
+// import {contactDet} from "../db/db"
 // import {Contact} from "../model/contact.model";
 
 export const getAllMessages = async () :Promise <ContactDto[]> => {
@@ -9,9 +9,9 @@ export const getAllMessages = async () :Promise <ContactDto[]> => {
 
 }
 
-export const saveMessage = (contact : ContactDto) => {
+export const saveMessage = async (contact : ContactDto) => {
     // contactDet.push(contact)
-    Contact.create(contact)
+    await Contact.create(contact)
     return "Your Message Have Been Saved!!!"
 }
 
