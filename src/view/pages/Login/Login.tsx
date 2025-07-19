@@ -1,32 +1,54 @@
-// import "./Login.css"
-
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { backendApi } from "../../../api.ts";
+import {getUserFromToken, type UserData} from "../../../auth/auth.ts";
 
 type FormData = {
-    email: string;
+    username: string;
     password: string;
 };
 
 export function Login() {
+    const navigate = useNavigate();
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
 
-    const onSubmit = (data: FormData) => {
-        console.log("Form submitted successfully:", data);
-        alert(`Login successful for: ${data.email}`);
-        window.location.href="/";
+    const authenticateUser = async (data: FormData) => {
+        try {
+            const response = await backendApi.post('/auth/login', {
+                username: data.username,
+                password: data.password
+            });
+
+            const accessToken = response.data.accessToken;
+            const refreshToken = response.data.refreshToken;
+
+            localStorage.setItem('token', accessToken);
+            localStorage.setItem('refreshToken', refreshToken);
+
+            const user : UserData = getUserFromToken(accessToken);
+
+            localStorage.setItem('username', user.username as string)
+            localStorage.setItem('role', user.role as string)
+
+            alert("Successfully logged in!");
+            navigate('/');
+        } catch (error) {
+            console.error(error);
+            alert("Login failed");
+        }
     };
 
     return (
         <div className="font-sans bg-[#101010] text-white w-[calc(100%-40px)] h-full flex justify-center items-center py-10 px-5">
             <form
                 className="bg-[#1A1A1A] border border-[#2c2c2c] rounded-xl p-10 max-w-[400px] w-full shadow-[0_0_20px_rgba(212,175,55,0.1)] text-white"
-                onSubmit={handleSubmit(onSubmit)}
+                onSubmit={handleSubmit(authenticateUser)}
             >
                 <div className="flex justify-start items-center w-full mb-5">
                     <button
                         type="button"
                         className="bg-transparent border-none text-white text-2xl cursor-pointer w-8 h-8 flex justify-center items-center pb-1 rounded-md transition-all duration-300 hover:text-[#D4AF37] hover:bg-[rgba(212,175,55,0.1)]"
-                        onClick={() => (window.location.href = "/")}
+                        onClick={() => navigate("/")}
                     >
                         ×
                     </button>
@@ -37,21 +59,17 @@ export function Login() {
                 </p>
 
                 <div className="mb-4 w-full">
-                    <label className="block mb-2 text-sm text-[#e0e0e0]">Email :</label>
+                    <label className="block mb-2 text-sm text-[#e0e0e0]">Username :</label>
                     <input
-                        type="email"
-                        placeholder="you@example.com"
+                        type="text"
+                        placeholder="username"
                         className="w-full p-3 mb-1 bg-transparent border border-[#333] rounded-lg text-white text-sm transition-all duration-300 placeholder-[#777] focus:border-[#D4AF37] focus:shadow-[0_0_6px_rgba(212,175,55,0.5)] focus:outline-none"
-                        {...register("email", {
-                            required: "Email is required",
-                            pattern: {
-                                value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i,
-                                message: "Invalid email address",
-                            },
+                        {...register("username", {
+                            required: "Username is required",
                         })}
                     />
-                    {errors.email && (
-                        <span className="text-[#ff4d4d] text-sm">{errors.email.message}</span>
+                    {errors.username && (
+                        <span className="text-[#ff4d4d] text-sm">{errors.username.message}</span>
                     )}
                 </div>
 
