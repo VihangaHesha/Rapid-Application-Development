@@ -3,6 +3,7 @@ import productRouter from "./routes/product.route";
 import contactRouter from "./routes/contact.route";
 import authRouter from "./routes/auth.route";
 import cors from 'cors';
+import {authenticateToken} from "./middleware/auth.middleware";
 
 
 const app : Express = express();
@@ -16,7 +17,7 @@ const allowedOrigins = [
 //This allows/enable CORS in the project
 // app.use(cors());
 
-//Blacklisting means
+//Blacklisting means blocking unauthorized URLs
 
 //This is called whitelisting a URL (Allowing some URLs to access the API)
 const corsOptions = {
@@ -32,14 +33,8 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 app.use("/api/auth", authRouter)
-app.use("/api/products", productRouter);
+app.use("/api/products", authenticateToken, productRouter);
 app.use("/api/contact",contactRouter)
 
-
-/*app.get('/',(req : Request,res : Response) =>  {
-    console.log(req.body);
-    res.send("HELLO WORLD!!!")
-});
-*/
 
 export default app;

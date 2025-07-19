@@ -19,7 +19,7 @@ const adminUser: User = {
 
 const customerUser: User = {
     id : 2,
-    username : "customer",
+    username : "Customer",
     password : bcrypt.hashSync("5678",10),
     role : "User"
 }
